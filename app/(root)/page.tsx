@@ -13,7 +13,7 @@ const page = () => {
 						type="greeting"
 						title="Welcome"
 						user={loggedIn?.firstName || "Guest"}
-						subtext="Access and manage your funds"
+						subtext="Access and manage your funds properly"
 					/>
 
                     <TotalBalanceBox 
