@@ -1,10 +1,20 @@
 import HeaderBox from "@/components/HeaderBox";
 import RightSideBar from "@/components/RightSideBar";
 import TotalBalanceBox from "@/components/TotalBalanceBox";
+import { getAccount, getAccounts } from "@/lib/actions/bank.actions";
 import { getLoggedInUser } from "@/lib/actions/user.actions";
 
 const page = async () => {
 	const loggedIn = await getLoggedInUser();
+	const accounts = await getAccounts({
+		userId: loggedIn.$id
+	})
+
+	if(!accounts) return;
+	
+	const appwriteItemId = (id as string) || accounts?.data[0]?.appwriteItemId;
+
+	const account = await getAccount({appwriteItemId})
 
 
 	return (
