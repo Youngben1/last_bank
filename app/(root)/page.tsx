@@ -4,7 +4,7 @@ import TotalBalanceBox from "@/components/TotalBalanceBox";
 import { getAccount, getAccounts } from "@/lib/actions/bank.actions";
 import { getLoggedInUser } from "@/lib/actions/user.actions";
 
-const page = async () => {
+const page = async ({searchParams: {id, page} }:SearchParamProps) => {
 	const loggedIn = await getLoggedInUser();
 	const accounts = await getAccounts({
 		userId: loggedIn.$id
@@ -12,7 +12,8 @@ const page = async () => {
 
 	if(!accounts) return;
 	
-	const appwriteItemId = (id as string) || accounts?.data[0]?.appwriteItemId;
+	const accountsData = accounts?.data;
+	const appwriteItemId = (id as string) || accountsData[0]?.appwriteItemId;
 
 	const account = await getAccount({appwriteItemId})
 
@@ -29,15 +30,15 @@ const page = async () => {
 					/>
 
                     <TotalBalanceBox 
-                    accounts={[]}
-                    totalBanks={1}
-                    totalCurrentBalance={3341.20}
+                    accounts={accountsData}
+                    totalBanks={accounts?.totalBanks}
+                    totalCurrentBalance={accounts?.totalCurrentBalance}
                     />
 				</header>
 
 				RECENT TRANSACTIONS
 			</div>
-			<RightSideBar user={loggedIn} transaction={[]} banks={[{currentBalance: 345.24}, {currentBalance: 345.24}]} />
+			<RightSideBar user={loggedIn} transactions={accounts?.transactions} banks={accountsData?.slice(0,2)} />
 		</section>
 	);
 };
