@@ -1,6 +1,7 @@
 import { formatAmount } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
+import Copy from "./Copy";
 
 const BankCard = ({ account, userName, showBalance=true }:CreditCardProps) => {
   return (
@@ -32,7 +33,7 @@ const BankCard = ({ account, userName, showBalance=true }:CreditCardProps) => {
             <Image src="/icons/lines.png" alt="lines" width={316} height={190} className="absolute top-0 left-0" />
         </Link>
 
-        {/*COPY CARD NUMBERS */}
+        {showBalance && <Copy title={account?.shareableId} />}
     </div>
   )
 }
