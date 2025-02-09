@@ -40,7 +40,7 @@ const page = async ({searchParams: {id, page} }:SearchParamProps) => {
 
 				<RecentTransactions accounts={accountsData} transactions={account?.transactions} appwriteItemId={appwriteItemId} page={currentPage} />
 			</div>
-			<RightSideBar user={loggedIn} transactions={accounts?.transactions} banks={accountsData?.slice(0,2)} />
+			<RightSideBar user={loggedIn} transactions={account?.transactions} banks={accountsData?.slice(0,2)} />
 		</section>
 	);
 };
